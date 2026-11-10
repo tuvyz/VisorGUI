@@ -72,8 +72,8 @@ protected:
 
 
     // Цвета текста и фона
-    Pixel backgroundColor{60, 60, 60, 255};
-    glm::ivec3 textColor = glm::ivec3{200, 200, 200};
+    Pixel backgroundColor = theme().inputBackground;
+    glm::ivec3 textColor = theme().inputText;
 
     // Смещение текста в рабочей области
     int textOffset;

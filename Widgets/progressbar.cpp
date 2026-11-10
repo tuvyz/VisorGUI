@@ -37,7 +37,7 @@ void ProgressBar::setValue(float value, Pixel color) {
 // Создание текстуры
 void ProgressBar::updateTexture() {
     auto& data = texture.data;
-    std::ranges::fill(data, Pixel(20, 140)); // Полупрозрачный тёмный фон
+    std::ranges::fill(data, theme().progressBackground);
 
     filledWidth = int(value * float(texture.width()) + 0.5f);
     texture.drawRectangle(0, 0, filledWidth, texture.height(), fillColor);

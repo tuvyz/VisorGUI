@@ -31,7 +31,8 @@ public:
     // Курсор покинул родительский виджет
     void cursorLeftParentWidget() override;
 
-    // Заблокировать/разблокировать кнопку
+    // Текст у левого края (строка списка), а не по центру
+    void setTextAlignedLeft(bool b) {isTextAlignedLeft = b; updateLater();}
 
 private:
 
@@ -39,6 +40,7 @@ private:
     void updateTexture() override;
 
     bool isLightType = false; // Если облегчённая версия, то не рисуются границы и фон прозрачный
+    bool isTextAlignedLeft = false; // Текст у левого края
 
 
     bool isCursorOnButton = false; // Курсор над кнопкой

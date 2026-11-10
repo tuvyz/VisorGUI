@@ -29,7 +29,7 @@ private:
     void updateTexture() override;
 
     float value = 1;              // Заполненная доля, 0..1
-    Pixel fillColor = Pixel(230); // Цвет заполненной части
+    Pixel fillColor = theme().progressFill; // Цвет заполненной части
     int filledWidth = -1;         // Ширина заполненной части в нарисованной текстуре, пиксели; -1 - не рисовалась
 };
 

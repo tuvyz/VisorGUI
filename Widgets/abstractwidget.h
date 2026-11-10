@@ -236,7 +236,7 @@ protected:
 
 
     // Отрисовка границ
-    virtual void drawBorders(const Pixel& color = Pixel(65));
+    virtual void drawBorders(const Pixel& color = theme().border);
 
     // Отрисовка текстуры виджета его квадом общей программой
     void drawQuad();

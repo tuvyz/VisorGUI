@@ -32,7 +32,7 @@ private:
     // Создание текстуры таймлайна
     void updateTexture() override;
 
-    glm::ivec3 textColor = {240, 240, 240};
+    glm::ivec3 textColor = theme().labelText;
     Pixel backgroundColor = Pixel(0, 0); // Цвет фона, по умолчанию прозрачный
     int textIndent = 0;                  // Отступ текста от левого края, пиксели при full hd
 

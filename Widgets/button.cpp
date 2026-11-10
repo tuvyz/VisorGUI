@@ -113,26 +113,26 @@ void Button::cursorLeftParentWidget() {
 void Button::updateTexture() {
 
     // Цвет элементов
-    int backgroundColor;
+    glm::ivec3 backgroundColor;
     glm::ivec3 textColor;
     glm::vec3 imgColorFactor;
     if (isButtonPress || isBlocked) {
-        backgroundColor = 25;
-        textColor = {110, 110, 110};
+        backgroundColor = theme().buttonBackgroundPressed;
+        textColor = theme().buttonTextPressed;
         imgColorFactor = {0.5, 0.5, 0.5};
     } else if (isCursorOnButton) {
-        backgroundColor = 50;
-        textColor = {205, 205, 205};
+        backgroundColor = theme().buttonBackgroundHover;
+        textColor = theme().buttonTextHover;
         imgColorFactor = {0.8, 0.8, 0.8};
     } else {
-        backgroundColor = 60;
-        textColor = {240, 240, 240};
+        backgroundColor = theme().buttonBackground;
+        textColor = theme().buttonText;
         imgColorFactor = {1, 1, 1};
     }
 
     // Данные текстуры
     auto &data = texture.data;
-    std::ranges::fill(data, Pixel(backgroundColor, float(!isLightType) * 255));
+    std::ranges::fill(data, Pixel(backgroundColor, int(!isLightType) * 255));
     int textureWidth = texture.width();
     int textureHeight = texture.height();
 
@@ -154,8 +154,12 @@ void Button::updateTexture() {
             texture.drawText({startX + iconWidth + iconGap, textureHeight / 2}, contextText, fontPixels, {0, -0.5}, textColor);
         }
     } else {
-        // Отрисовка текста
-        texture.drawText({textureWidth / 2, textureHeight / 2}, contextText, fontSize * guiContext->windowScaleFactor(), {-0.5, -0.5}, textColor);
+        // Отрисовка текста: по центру или у левого края
+        if (isTextAlignedLeft)
+            texture.drawText({int(10 * guiContext->windowScaleFactor()), textureHeight / 2}, contextText, fontSize * guiContext->windowScaleFactor(),
+                             {0, -0.5}, textColor);
+        else
+            texture.drawText({textureWidth / 2, textureHeight / 2}, contextText, fontSize * guiContext->windowScaleFactor(), {-0.5, -0.5}, textColor);
     }
 
 

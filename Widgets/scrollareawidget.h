@@ -190,20 +190,20 @@ public:
 
     // Отрисовка на текстуре
     void draw() {
-        int scrollerColor = isCursorOnScroller ? 80 : 110;
+        Pixel scrollerColor = isCursorOnScroller ? theme().scrollerHover : theme().scroller;
         if (isNeedScroll) {
             if (type == Vertical) {
                 for (int y = nullScroller; y < std::min(nullScroller + scrollerHeight, widget.getWidgetSize().height); ++y) {
                     for (int x = widget.getWidgetSize().width - widget.getOffsetWorkArea().x - scrollerAreaSize; x < widget.getWidgetSize().width - widget.getBorderSize(); ++x) {
                         int id = (x + y * widget.getTexture().width());
-                        widget.getTexture().data[id] = Pixel(scrollerColor);
+                        widget.getTexture().data[id] = scrollerColor;
                     }
                 }
             } else { // Horizontal
                 for (int y = widget.getWidgetSize().height - widget.getBorderSize() - scrollerAreaSize; y < widget.getWidgetSize().height - widget.getBorderSize(); ++y) {
                     for (int x = nullScroller; x < std::min(nullScroller + scrollerWidth, widget.getWidgetSize().width - widget.getBorderSize()); ++x) {
                         int id = (x + y * widget.getTexture().width());
-                        widget.getTexture().data[id] = Pixel(scrollerColor);
+                        widget.getTexture().data[id] = scrollerColor;
                     }
                 }
             }
@@ -348,12 +348,12 @@ private:
     double fitBottomMargin = 0;             // Подогнанное окно не опускается ближе этого к низу экрана, в пикселях при full hd
     bool isFitGrowsLeft = false;            // Подогнанное окно растёт влево, правый край на месте
 
-    Pixel backgroundColor = Pixel(45);           // Фон окна
-    Pixel titleBackgroundColor = Pixel(35);      // Полоса заголовка
-    glm::ivec3 titleTextColor{240, 240, 240};    // Текст заголовка
+    Pixel backgroundColor = theme().windowBackground;           // Фон окна
+    Pixel titleBackgroundColor = theme().windowTitleBackground;      // Полоса заголовка
+    glm::ivec3 titleTextColor = theme().windowTitleText;    // Текст заголовка
     Pixel titleAccentColor = Pixel(0, 0);        // Плашка под текстом заголовка
     double titleAccentWidth = 0;                 // Ширина плашки, пикселей при full hd, 0 - без плашки
-    Pixel borderColor = Pixel(65);               // Рамка окна
+    Pixel borderColor = theme().windowBorder;               // Рамка окна
 
     bool isDraggable = false;        // Окно таскается за заголовок
     bool isDragging = false;         // Окно сейчас тащат

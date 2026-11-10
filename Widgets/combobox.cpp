@@ -264,13 +264,13 @@ bool ComboBox::handleEvent(const SDL_Event& event) {
 // Создание текстуры
 void ComboBox::updateTexture() {
 
-    glm::ivec3 textColor = glm::ivec3(240);
+    glm::ivec3 textColor = theme().comboText;
 
     // Заполнение фона (заблокированный приглушён)
-    int backgroundColor = 65;
+    glm::ivec3 backgroundColor = theme().comboBackground;
     if (isBlocked) {
         textColor = glm::vec3(textColor) * 0.5f;
-        backgroundColor = backgroundColor * 0.5f;
+        backgroundColor = glm::vec3(backgroundColor) * 0.5f;
     }
     std::ranges::fill(texture.data, Pixel(backgroundColor));
 
@@ -290,9 +290,9 @@ void ComboBox::updateTexture() {
             for (int i = 0; i < items.size(); ++i) {
 
                 // Чередование фона элементов, под курсором - темнее
-                int itemBackgroundColor = (i % 2 == 0) ? 70 : 75;
+                glm::ivec3 itemBackgroundColor = (i % 2 == 0) ? theme().comboItem : theme().comboItemAlternate;
                 if (cursorOnItemId == i)
-                    itemBackgroundColor = 45;
+                    itemBackgroundColor = theme().comboItemActive;
                 texture.drawRectangle(0, yOffset, texture.width(), itemHeightPix, Pixel(itemBackgroundColor));
 
                 texture.drawText({extraPaddingContextText.x * guiContext->windowScaleFactor(), yOffset + itemHeightPix / 2},

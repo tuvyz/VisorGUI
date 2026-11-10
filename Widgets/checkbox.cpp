@@ -38,10 +38,10 @@ void CheckBox::calcWidgetSize() {
 void CheckBox::updateTexture() {
 
     glm::ivec3 textColor = textColorActivated;
-    glm::vec3 imgColorFactor = glm::vec3(1);
+    glm::vec3 imgColorFactor = theme().checkBoxImageTint;
     if (isBlocked) {
         textColor = glm::vec3(textColorDeactivated) * 0.5f;
-        imgColorFactor = glm::vec3(0.4f);
+        imgColorFactor *= 0.4f;
     } else {
         // Если курсор над кнопкой, то цвет изменяется
         if (isCursorOnButton) {

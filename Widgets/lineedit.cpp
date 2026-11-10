@@ -619,7 +619,7 @@ void LineEdit::updateTexture() {
         int rectHeight = areaBottomRight.y - areaTopLeft.y + 1;
 
         // Отрисовка выделенной области
-        texture.drawRectangle(areaTopLeft.x, areaTopLeft.y, rectWidth, rectHeight, Pixel(120));
+        texture.drawRectangle(areaTopLeft.x, areaTopLeft.y, rectWidth, rectHeight, theme().inputSelection);
     }
 
 
@@ -629,7 +629,7 @@ void LineEdit::updateTexture() {
 
     // Отрисовка каретки
     if (isCaretVisible) {
-        texture.drawRectangle(caretAbsWidgetPos.x + scrollOffset.x, caretAbsWidgetPos.y, 2, caretTextureHeight, Pixel(caretColor));
+        texture.drawRectangle(caretAbsWidgetPos.x + scrollOffset.x, caretAbsWidgetPos.y, 2, caretTextureHeight, theme().inputCaret);
     }
 
 

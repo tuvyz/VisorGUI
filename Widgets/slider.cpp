@@ -145,22 +145,13 @@ void Slider::cursorLeftParentWidget() {
 void Slider::updateTexture() {
 
     // Цвет элементов
-    int backgroundColor;
-    glm::ivec3 textColor;
     glm::vec3 imgColorFactor;
-    if (isSliderPress || isBlocked) {
-        backgroundColor = 25;
-        textColor = {110, 110, 110};
+    if (isSliderPress || isBlocked)
         imgColorFactor = {0.5, 0.5, 0.5};
-    } else if (isCursorOnSlider) {
-        backgroundColor = 50;
-        textColor = {205, 205, 205};
+    else if (isCursorOnSlider)
         imgColorFactor = {0.8, 0.8, 0.8};
-    } else {
-        backgroundColor = 60;
-        textColor = {240, 240, 240};
+    else
         imgColorFactor = {1, 1, 1};
-    }
 
     // Данные текстуры
     auto &data = texture.data;
@@ -171,7 +162,7 @@ void Slider::updateTexture() {
 
     // Отрисовка линии
     int lineThickness = 6;
-    texture.drawRectangle(widgetSize.height / 2, texture.height() / 2 - lineThickness / 2, widgetSize.width - widgetSize.height, lineThickness, Pixel(80));
+    texture.drawRectangle(widgetSize.height / 2, texture.height() / 2 - lineThickness / 2, widgetSize.width - widgetSize.height, lineThickness, theme().sliderLine);
 
 
     // Отрисовка ползунка

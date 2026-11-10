@@ -94,11 +94,11 @@ protected:
 
 
     // Цвет текста
-    glm::ivec3 textColorActivated = {255, 255, 255};
-    glm::ivec3 textColorDeactivated = {200, 200, 200};
+    glm::ivec3 textColorActivated = theme().switchText;
+    glm::ivec3 textColorDeactivated = theme().switchTextOff;
 
     // Цвет фона включённой кнопки, выключенная - в 0.6 от него
-    glm::ivec3 backgroundBaseColor = {100, 100, 100};
+    glm::ivec3 backgroundBaseColor = theme().switchBackground;
     
 };
 

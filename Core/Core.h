@@ -23,5 +23,6 @@
 #include <SDL.h>
 #include <VisorGUI/Core/BasicTypes.h>
 #include <VisorGUI/Core/Platform.h>
+#include <VisorGUI/Core/Theme.h>
 #include <VisorGUI/Core/LruCache.h>
 #include <VisorGUI/Core/Utils.h>

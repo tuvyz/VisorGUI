@@ -83,12 +83,12 @@ void ToolTip::updateTexture() {
     double lineHeight = fontSize * lineSpacing * scale;
     double top = (texture.height() - double(lines.size()) * lineHeight) / 2;
 
-    std::ranges::fill(texture.data, Pixel(28, 28, 28, 240));
+    std::ranges::fill(texture.data, theme().toolTipBackground);
     for (int lineIndex = 0; lineIndex < lines.size(); ++lineIndex) {
         glm::ivec2 basePos(int(extraPaddingContextText.x * scale / 2), int(top + (lineIndex + 0.5) * lineHeight));
-        texture.drawText(basePos, lines[lineIndex], fontSize * scale, {0, -0.5}, {225, 225, 225});
+        texture.drawText(basePos, lines[lineIndex], fontSize * scale, {0, -0.5}, theme().toolTipText);
     }
-    drawBorders(Pixel(90));
+    drawBorders(theme().toolTipBorder);
     texture.update();
 }
 
