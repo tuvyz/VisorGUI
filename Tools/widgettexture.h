@@ -90,13 +90,13 @@ public:
     // Отрисовка текста
     void drawText(glm::ivec2 basePos, const std::wstring& text,
                   int fontSize, glm::vec2 shiftPercent = {0, 0}, glm::ivec3 color = {240, 240, 240}) {
-        guiContext->textRenderer.drawText(data, MySize<int>(_width, _height), basePos, text, fontSize, shiftPercent, color);
+        guiContext->textRenderer.drawText(data.data(), MySize<int>(_width, _height), basePos, text, fontSize, shiftPercent, color);
     }
 
 
     // Отрисовка изображения
     void drawImage(glm::ivec2 basePos, const std::wstring& imageResourcePath, int targetHeight, glm::vec2 shiftPercent, glm::vec3 colorFactor = {1, 1, 1}) {
-        guiContext->imageRenderer.drawImage(data, MySize<int>(_width, _height), basePos, imageResourcePath, targetHeight, shiftPercent, colorFactor);
+        guiContext->imageRenderer.drawImage(data.data(), MySize<int>(_width, _height), basePos, imageResourcePath, targetHeight, shiftPercent, colorFactor);
     }
 
 

@@ -18,6 +18,13 @@ public:
                  glm::dvec3 value = glm::dvec3(0),
                  double step = 0.1);
 
+    // Три поля дробных чисел в диапазоне -1..1
+    Vec3LineEdit(MySize<double> standardWidgetSize,
+                 glm::dvec2 standardWidgetPos,
+                 SimplePair<POSITIONING_POLICY> positioningPolicy = {ABSOLUTE_WINDOW_POSITION, ABSOLUTE_WINDOW_POSITION},
+                 glm::dvec2 nullOffset = glm::dvec2(0, 0))
+        : Vec3LineEdit(&DOUBLE_Validator, standardWidgetSize, standardWidgetPos, positioningPolicy, nullOffset) {}
+
 
     // Сигналы
     class ValueChanged_Event : public Event {

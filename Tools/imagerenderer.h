@@ -28,7 +28,7 @@ public:
     ~ImageRenderer();
 
     // Отрисовка изображения
-    void drawImage(std::vector<Pixel>& data, MySize<int> dataSize, glm::ivec2 basePos, const std::wstring& imageResourcePath, int targetHeight, glm::vec2 shiftPercent, glm::vec3 colorFactor = {1, 1, 1});
+    void drawImage(Pixel *data, MySize<int> dataSize, glm::ivec2 basePos, const std::wstring& imageResourcePath, int targetHeight, glm::vec2 shiftPercent, glm::vec3 colorFactor = {1, 1, 1});
 
     // Определение ширины картинки
     int calculateTargetWidth(const std::wstring& imageResourcePath, int targetHeight);

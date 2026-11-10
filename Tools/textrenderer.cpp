@@ -28,7 +28,7 @@ TextRenderer::~TextRenderer() {
 
 
 // Отрисовка текста
-void TextRenderer::drawText(std::vector<Pixel> &data, MySize<int> dataSize, glm::ivec2 basePos, const std::wstring& text,
+void TextRenderer::drawText(Pixel *data, MySize<int> dataSize, glm::ivec2 basePos, const std::wstring& text,
               int fontSize, glm::vec2 shiftPercent, glm::ivec3 color) {
 
     MySize<int> textSize = calculateTextSize(text, fontSize);
@@ -113,7 +113,7 @@ std::shared_ptr<GlyphTexture> TextRenderer::getGlyphTexture(wchar_t character, i
 
 
 // Отрисовка глифа на текстуре
-void TextRenderer::drawGlyph(std::vector<Pixel> &data, MySize<int> dataSize, std::shared_ptr<GlyphTexture> glyph, glm::ivec2 textPos, int fontSize, glm::ivec3 color) {
+void TextRenderer::drawGlyph(Pixel *data, MySize<int> dataSize, std::shared_ptr<GlyphTexture> glyph, glm::ivec2 textPos, int fontSize, glm::ivec3 color) {
     for (int i = 0; i < glyph->height; ++i) {
         for (int j = 0; j < glyph->width; ++j) {
 

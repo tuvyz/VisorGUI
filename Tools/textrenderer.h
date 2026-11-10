@@ -44,7 +44,7 @@ public:
 
 
     // Отрисовка текста
-    void drawText(std::vector<Pixel> &data, MySize<int> dataSize, glm::ivec2 basePos, const std::wstring& text,
+    void drawText(Pixel *data, MySize<int> dataSize, glm::ivec2 basePos, const std::wstring& text,
                   int fontSize, glm::vec2 shiftPercent = {0, 0}, glm::ivec3 color = {240, 240, 240});
 
 
@@ -68,7 +68,7 @@ private:
 
 
     // Отрисовка глифа на текстуре
-    void drawGlyph(std::vector<Pixel> &data, MySize<int> dataSize, std::shared_ptr<GlyphTexture> glyph, glm::ivec2 textPos, int fontSize, glm::ivec3 color);
+    void drawGlyph(Pixel *data, MySize<int> dataSize, std::shared_ptr<GlyphTexture> glyph, glm::ivec2 textPos, int fontSize, glm::ivec3 color);
 };
 
 

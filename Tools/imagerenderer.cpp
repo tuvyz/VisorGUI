@@ -18,7 +18,7 @@ ImageRenderer::~ImageRenderer() {}
 
 
 // Отрисовка изображения
-void ImageRenderer::drawImage(std::vector<Pixel>& data, MySize<int> dataSize, glm::ivec2 basePos,
+void ImageRenderer::drawImage(Pixel *data, MySize<int> dataSize, glm::ivec2 basePos,
                               const std::wstring& imageResourcePath, int targetHeight, glm::vec2 shiftPercent, glm::vec3 colorFactor) {
     auto texture = getImageTexture(imageResourcePath, targetHeight);
 

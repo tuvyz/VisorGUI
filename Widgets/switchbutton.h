@@ -38,10 +38,15 @@ public:
     // Добавляет связанные кнопки. Когда кто-то получит состояние true, все остальные кнопки в связки получат false
     void addRelatedButtons(std::vector<SwitchButton*> &buttons);
     void addRelatedButtons(SwitchButton**, int size);
+    template<typename Container>
+    void addRelatedButtons(Container &buttons) {addRelatedButtons(buttons.data(), int(buttons.size()));}
     // Статические методы, которые сами вызовут addRelatedButtons для каждой кнопки
     static void linkButtons(std::initializer_list<SwitchButton*> buttons);
     static void linkButtons(std::vector<SwitchButton*> &buttons);
     static void linkButtons(SwitchButton**, int size);
+    // Связка из любого массива кнопок с data() и size()
+    template<typename Container>
+    static void linkButtons(Container &buttons) {linkButtons(buttons.data(), int(buttons.size()));}
 
     // Текущее состояние
     bool getState() {return state;}

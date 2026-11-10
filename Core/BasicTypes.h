@@ -90,3 +90,9 @@ struct SimplePair {
 
 
 } // namespace vgui
+
+
+// Программа, которой нужны имена библиотеки без префикса vgui::, задаёт VGUI_USING_NAMESPACE
+#ifdef VGUI_USING_NAMESPACE
+using namespace vgui;
+#endif
