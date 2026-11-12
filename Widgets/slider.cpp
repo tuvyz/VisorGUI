@@ -143,6 +143,16 @@ void Slider::render() {
 
 
 
+// Обновление параметров виджета: есть ли место под стрелки
+void Slider::updateParamsAfterScale() {
+    // Стрелки - только если дорожке между ними остаётся хотя бы две высоты, иначе слайдер как без них
+    arrowSize = widgetSize.width >= widgetSize.height * 5 ? widgetSize.height : 0;
+}
+
+
+
+
+
 
 
 // Задать диапазон значений и шаг (0 - плавно); по умолчанию 0..1 плавно. Текущее значение обрезается под новый диапазон
@@ -217,14 +227,16 @@ void Slider::updateTexture() {
 
     // Отрисовка линии (между стрелками, по ходу центра ползунка)
     int lineThickness = 6;
-    texture.drawRectangle(widgetSize.height * 1.5, texture.height() / 2 - lineThickness / 2, widgetSize.width - widgetSize.height * 3, lineThickness, theme().sliderLine);
+    texture.drawRectangle(arrowSize + widgetSize.height / 2, texture.height() / 2 - lineThickness / 2, widgetSize.width - arrowSize * 2 - widgetSize.height, lineThickness, theme().sliderLine);
 
 
     // Отрисовка стрелок: треугольники остриём наружу посередине своих квадратов, края сглажены (4x4 выборки на пиксель)
-    double arrowHeight = texture.height() * 0.6;
+    double arrowHeight = arrowSize * 0.6;
     double arrowWidth = arrowHeight * 0.88;
     double arrowCenterY = texture.height() / 2.0;
     for (int direction : {-1, 1}) {
+        if (arrowSize <= 0)
+            break;
 
         // Цвет стрелки
         float arrowColorFactor;
@@ -237,7 +249,7 @@ void Slider::updateTexture() {
         Pixel arrowColor = theme().sliderArrow * arrowColorFactor;
 
         // Середина квадрата стрелки и остриё
-        double arrowCenterX = direction < 0 ? texture.height() / 2.0 : texture.width() - texture.height() / 2.0;
+        double arrowCenterX = direction < 0 ? arrowSize / 2 : texture.width() - arrowSize / 2;
         double tipX = arrowCenterX + direction * arrowWidth / 2;
 
         for (int y = int(arrowCenterY - arrowHeight / 2); y <= int(arrowCenterY + arrowHeight / 2); ++y) {
@@ -276,12 +288,12 @@ void Slider::updateTexture() {
 
 // Выдача абсолютной позиции слайдера относительно виджета (центр ходит между стрелками, отступив от них на радиус)
 glm::ivec2 Slider::sliderAbsPos() {
-    return glm::ivec2(widgetSize.height * 1.5 + sliderPos * (widgetSize.width - widgetSize.height * 3), widgetSize.height / 2);
+    return glm::ivec2(arrowSize + widgetSize.height / 2 + sliderPos * (widgetSize.width - arrowSize * 2 - widgetSize.height), widgetSize.height / 2);
 }
 
 void Slider::setSliderAbsPos(int absX) {
     // Вычисляем ширину области, по которой может двигаться слайдер (без квадратов стрелок)
-    int range = widgetSize.width - widgetSize.height * 3;
+    int range = widgetSize.width - arrowSize * 2 - widgetSize.height;
 
     // Проверка, чтобы не делить на 0, если размер виджета как-то криво задан
     if (range <= 0) {
@@ -290,7 +302,7 @@ void Slider::setSliderAbsPos(int absX) {
     }
 
     // Вычисляем относительную позицию слайдера в диапазоне [0.0, 1.0]
-    double newPos = std::clamp(double(absX - widgetSize.height * 1.5) / double(range), 0.0, 1.0);
+    double newPos = std::clamp(double(absX - arrowSize - widgetSize.height / 2) / double(range), 0.0, 1.0);
 
     // Позиция в значение диапазона, со шагом ползунок прыгает по делениям; сигнал - только если значение поменялось
     double oldValue = value;
@@ -328,11 +340,11 @@ bool Slider::cursorInWidget() {
 // Стрелка под курсором: -1 левая, 1 правая, 0 - курсор не над стрелкой
 int Slider::arrowUnderCursor() {
     glm::dvec2 cursor = glm::dvec2(guiContext->cursorPosition()) - widgetPos;
-    if (cursor.y < 0 || cursor.y >= widgetSize.height)
+    if (arrowSize <= 0 || cursor.y < 0 || cursor.y >= widgetSize.height)
         return 0;
-    if (cursor.x >= 0 && cursor.x < widgetSize.height)
+    if (cursor.x >= 0 && cursor.x < arrowSize)
         return -1;
-    if (cursor.x < widgetSize.width && cursor.x >= widgetSize.width - widgetSize.height)
+    if (cursor.x < widgetSize.width && cursor.x >= widgetSize.width - arrowSize)
         return 1;
     return 0;
 }
