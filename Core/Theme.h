@@ -31,8 +31,9 @@ struct Theme {
     glm::ivec3 buttonTextHover = {205, 205, 205};
     glm::ivec3 buttonTextPressed = {110, 110, 110};
 
-    // Ползунок: линия под бегунком
+    // Ползунок: линия под бегунком, стрелки по краям
     Pixel sliderLine = Pixel(80);
+    Pixel sliderArrow = Pixel(140);
 
     // Поле ввода
     Pixel inputBackground = Pixel(60);
