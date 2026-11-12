@@ -21,7 +21,7 @@ C++20, SDL2, FreeType, glm, an OpenGL 3.3 loader (GLEW by default, another one v
 
 ## Building
 
-Put the library into a folder named `VisorGUI` (headers are included as `<VisorGUI/...>`) and add it from your CMake:
+Put the library into a folder named `VisorGUI` (headers are included as `<VisorGUI/...>`), for example as a git submodule: `git submodule add https://github.com/tuvyz/VisorGUI.git Libs/VisorGUI`. Then add it from your CMake:
 
 ```cmake
 set(VGUI_DEPENDENCY_INCLUDE_DIRS ${SDL2_INCLUDE_DIRS} ${FREETYPE_INCLUDE_DIRS} path/to/glm path/to/glew/include)
