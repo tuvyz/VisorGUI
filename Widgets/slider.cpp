@@ -145,8 +145,8 @@ void Slider::render() {
 
 // Обновление параметров виджета: есть ли место под стрелки
 void Slider::updateParamsAfterScale() {
-    // Стрелки - только если дорожке между ними остаётся хотя бы две высоты, иначе слайдер как без них
-    arrowSize = widgetSize.width >= widgetSize.height * 5 ? widgetSize.height : 0;
+    // Стрелки - только если слайдер шире пяти своих высот, иначе слайдер как без них; ширина треугольника - 0.88 его высоты
+    arrowSize = widgetSize.width >= widgetSize.height * 5 ? widgetSize.height * 0.6 * 0.88 : 0;
 }
 
 
@@ -230,9 +230,9 @@ void Slider::updateTexture() {
     texture.drawRectangle(arrowSize + widgetSize.height / 2, texture.height() / 2 - lineThickness / 2, widgetSize.width - arrowSize * 2 - widgetSize.height, lineThickness, theme().sliderLine);
 
 
-    // Отрисовка стрелок: треугольники остриём наружу посередине своих квадратов, края сглажены (4x4 выборки на пиксель)
-    double arrowHeight = arrowSize * 0.6;
-    double arrowWidth = arrowHeight * 0.88;
+    // Отрисовка стрелок: треугольники остриём наружу у краёв виджета, основанием к ползунку, края сглажены (4x4 выборки на пиксель)
+    double arrowHeight = texture.height() * 0.6;
+    double arrowWidth = arrowSize;
     double arrowCenterY = texture.height() / 2.0;
     for (int direction : {-1, 1}) {
         if (arrowSize <= 0)
@@ -248,7 +248,7 @@ void Slider::updateTexture() {
             arrowColorFactor = 1;
         Pixel arrowColor = theme().sliderArrow * arrowColorFactor;
 
-        // Середина квадрата стрелки и остриё
+        // Середина стрелки и остриё
         double arrowCenterX = direction < 0 ? arrowSize / 2 : texture.width() - arrowSize / 2;
         double tipX = arrowCenterX + direction * arrowWidth / 2;
 
@@ -286,13 +286,13 @@ void Slider::updateTexture() {
 
 
 
-// Выдача абсолютной позиции слайдера относительно виджета (центр ходит между стрелками, отступив от них на радиус)
+// Выдача абсолютной позиции слайдера относительно виджета (центр ходит между стрелками, в крайних положениях ползунок касается стрелки)
 glm::ivec2 Slider::sliderAbsPos() {
     return glm::ivec2(arrowSize + widgetSize.height / 2 + sliderPos * (widgetSize.width - arrowSize * 2 - widgetSize.height), widgetSize.height / 2);
 }
 
 void Slider::setSliderAbsPos(int absX) {
-    // Вычисляем ширину области, по которой может двигаться слайдер (без квадратов стрелок)
+    // Вычисляем ширину области, по которой может двигаться слайдер (без стрелок)
     int range = widgetSize.width - arrowSize * 2 - widgetSize.height;
 
     // Проверка, чтобы не делить на 0, если размер виджета как-то криво задан
